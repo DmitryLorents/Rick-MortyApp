@@ -16,6 +16,7 @@
 		0AFC20342AF948CE00B89451 /* FavoritesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AFC202C2AF948CE00B89451 /* FavoritesViewController.swift */; };
 		0AFC20352AF948CE00B89451 /* EpisodesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AFC202F2AF948CE00B89451 /* EpisodesViewController.swift */; };
 		0AFC20362AF948CE00B89451 /* TabBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AFC20322AF948CE00B89451 /* TabBar.swift */; };
+		0AFC20392AF95CA200B89451 /* EpisodesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AFC20382AF95CA200B89451 /* EpisodesView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -30,6 +31,7 @@
 		0AFC202C2AF948CE00B89451 /* FavoritesViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FavoritesViewController.swift; sourceTree = "<group>"; };
 		0AFC202F2AF948CE00B89451 /* EpisodesViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EpisodesViewController.swift; sourceTree = "<group>"; };
 		0AFC20322AF948CE00B89451 /* TabBar.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TabBar.swift; sourceTree = "<group>"; };
+		0AFC20382AF95CA200B89451 /* EpisodesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EpisodesView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -94,9 +96,9 @@
 			children = (
 				0AFC20302AF948CE00B89451 /* TabBar */,
 				0AFC20262AF948CE00B89451 /* LaunchScreen */,
-				0AFC20292AF948CE00B89451 /* CharacterDetails */,
-				0AFC202A2AF948CE00B89451 /* Favorites */,
 				0AFC202D2AF948CE00B89451 /* Episodes */,
+				0AFC202A2AF948CE00B89451 /* Favorites */,
+				0AFC20292AF948CE00B89451 /* CharacterDetails */,
 			);
 			path = Modules;
 			sourceTree = "<group>";
@@ -143,6 +145,7 @@
 		0AFC202D2AF948CE00B89451 /* Episodes */ = {
 			isa = PBXGroup;
 			children = (
+				0AFC20372AF95C7900B89451 /* View */,
 				0AFC202E2AF948CE00B89451 /* Controller */,
 			);
 			path = Episodes;
@@ -170,6 +173,14 @@
 				0AFC20322AF948CE00B89451 /* TabBar.swift */,
 			);
 			path = Controller;
+			sourceTree = "<group>";
+		};
+		0AFC20372AF95C7900B89451 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				0AFC20382AF95CA200B89451 /* EpisodesView.swift */,
+			);
+			path = View;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -246,6 +257,7 @@
 				0AFC20352AF948CE00B89451 /* EpisodesViewController.swift in Sources */,
 				0AFC20362AF948CE00B89451 /* TabBar.swift in Sources */,
 				0AFC20152AF946BE00B89451 /* Rick_MortyApp.xcdatamodeld in Sources */,
+				0AFC20392AF95CA200B89451 /* EpisodesView.swift in Sources */,
 				0AFC20332AF948CE00B89451 /* LaunchScreenViewController.swift in Sources */,
 				0AFC20342AF948CE00B89451 /* FavoritesViewController.swift in Sources */,
 				0AFC200D2AF946BE00B89451 /* SceneDelegate.swift in Sources */,
