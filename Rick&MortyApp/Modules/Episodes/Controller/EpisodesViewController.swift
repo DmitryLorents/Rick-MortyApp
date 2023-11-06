@@ -8,10 +8,12 @@
 import UIKit
 
 class EpisodesViewController: UIViewController {
+    
+    let mainView = EpisodesView()
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        view.backgroundColor = .green
+        view = EpisodesView()
 
         
     }
