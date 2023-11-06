@@ -17,6 +17,7 @@
 		0AFC20352AF948CE00B89451 /* EpisodesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AFC202F2AF948CE00B89451 /* EpisodesViewController.swift */; };
 		0AFC20362AF948CE00B89451 /* TabBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AFC20322AF948CE00B89451 /* TabBar.swift */; };
 		0AFC20392AF95CA200B89451 /* EpisodesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AFC20382AF95CA200B89451 /* EpisodesView.swift */; };
+		0AFC203D2AF96F3100B89451 /* EpisodesCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AFC203C2AF96F3100B89451 /* EpisodesCollectionViewCell.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -32,6 +33,7 @@
 		0AFC202F2AF948CE00B89451 /* EpisodesViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EpisodesViewController.swift; sourceTree = "<group>"; };
 		0AFC20322AF948CE00B89451 /* TabBar.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TabBar.swift; sourceTree = "<group>"; };
 		0AFC20382AF95CA200B89451 /* EpisodesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EpisodesView.swift; sourceTree = "<group>"; };
+		0AFC203C2AF96F3100B89451 /* EpisodesCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EpisodesCollectionViewCell.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -179,6 +181,7 @@
 			isa = PBXGroup;
 			children = (
 				0AFC20382AF95CA200B89451 /* EpisodesView.swift */,
+				0AFC203C2AF96F3100B89451 /* EpisodesCollectionViewCell.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -255,6 +258,7 @@
 			files = (
 				0AFC200B2AF946BE00B89451 /* AppDelegate.swift in Sources */,
 				0AFC20352AF948CE00B89451 /* EpisodesViewController.swift in Sources */,
+				0AFC203D2AF96F3100B89451 /* EpisodesCollectionViewCell.swift in Sources */,
 				0AFC20362AF948CE00B89451 /* TabBar.swift in Sources */,
 				0AFC20152AF946BE00B89451 /* Rick_MortyApp.xcdatamodeld in Sources */,
 				0AFC20392AF95CA200B89451 /* EpisodesView.swift in Sources */,
