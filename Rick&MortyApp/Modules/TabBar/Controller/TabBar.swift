@@ -11,7 +11,7 @@ class TabBar: UITabBarController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        view.backgroundColor = .systemBackground
+        view.backgroundColor = .white
         setViewControllers()
     }
     
@@ -24,8 +24,12 @@ class TabBar: UITabBarController {
         episodesVC.tabBarItem = episodesItem
         //favorites
         let favoritesVC = FavoritesViewController()
+        let favoritesUnselectedImage = UIImage(named: "heart")?.withRenderingMode(.alwaysOriginal)
+        let favoritesSelectedImage = UIImage(named: "heartFill")?.withRenderingMode(.alwaysOriginal)
+        let favoritesItem = UITabBarItem(title: nil, image: favoritesUnselectedImage, selectedImage: favoritesSelectedImage)
+        favoritesVC.tabBarItem = favoritesItem
         
         
-        viewControllers = [episodesVC]
+        viewControllers = [episodesVC, favoritesVC]
     }
 }
