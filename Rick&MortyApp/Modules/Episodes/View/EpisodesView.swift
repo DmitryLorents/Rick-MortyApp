@@ -20,7 +20,6 @@ final class EpisodesView: UIView {
     }()
     private lazy var episodesCollectionView: UICollectionView = {
         let view = UICollectionView(frame: .zero, collectionViewLayout: UICollectionViewFlowLayout())
-        view.backgroundColor = .yellow
         view.register(EpisodesCollectionViewCell.self, forCellWithReuseIdentifier: EpisodesCollectionViewCell.reuseId)
         return view
     }()
@@ -59,7 +58,7 @@ final class EpisodesView: UIView {
             logoImageView.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 24),
             logoImageView.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -24),
             
-            episodesSearchBar.topAnchor.constraint(equalTo: logoImageView.bottomAnchor, constant: 67),
+            episodesSearchBar.topAnchor.constraint(equalTo: logoImageView.bottomAnchor, constant: 12),
             episodesSearchBar.leadingAnchor.constraint(equalTo: logoImageView.leadingAnchor),
             episodesSearchBar.trailingAnchor.constraint(equalTo: logoImageView.trailingAnchor),
             episodesSearchBar.heightAnchor.constraint(equalToConstant: 56),
