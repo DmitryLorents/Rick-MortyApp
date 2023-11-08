@@ -9,6 +9,8 @@ import UIKit
 
 class EpisodesCollectionViewCell: UICollectionViewCell {
     
+    static let reuseId = String(describing: EpisodesCollectionViewCell.self)
+    
     //MARK: - Parameters
 //    private let mainImageView = UIImageView()
 //    private let nameTitle = UISearchBar()
