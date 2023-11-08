@@ -21,6 +21,7 @@ final class EpisodesView: UIView {
     private lazy var episodesCollectionView: UICollectionView = {
         let view = UICollectionView(frame: .zero, collectionViewLayout: UICollectionViewFlowLayout())
         view.backgroundColor = .yellow
+        view.register(EpisodesCollectionViewCell.self, forCellWithReuseIdentifier: EpisodesCollectionViewCell.reuseId)
         return view
     }()
     
@@ -40,6 +41,11 @@ final class EpisodesView: UIView {
         addSubview(episodesSearchBar)
         addSubview(filterButton)
         addSubview(episodesCollectionView)
+    }
+    
+    func setDelegates(dataSource: UICollectionViewDataSource, delegate: UICollectionViewDelegate) {
+        episodesCollectionView.dataSource = dataSource
+        episodesCollectionView.delegate = delegate
     }
     
     private func setConstraints() {
