@@ -7,6 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		0A162AD92AFD574500DF885A /* CharacterDetailsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A162AD82AFD574500DF885A /* CharacterDetailsViewController.swift */; };
+		0A162ADC2AFD578800DF885A /* CharacterDetailsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A162ADB2AFD578800DF885A /* CharacterDetailsView.swift */; };
+		0A162ADE2AFD595600DF885A /* DetailTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A162ADD2AFD595600DF885A /* DetailTableViewCell.swift */; };
 		0AFC200B2AF946BE00B89451 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AFC200A2AF946BE00B89451 /* AppDelegate.swift */; };
 		0AFC200D2AF946BE00B89451 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AFC200C2AF946BE00B89451 /* SceneDelegate.swift */; };
 		0AFC20152AF946BE00B89451 /* Rick_MortyApp.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 0AFC20132AF946BE00B89451 /* Rick_MortyApp.xcdatamodeld */; };
@@ -21,6 +24,9 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		0A162AD82AFD574500DF885A /* CharacterDetailsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CharacterDetailsViewController.swift; sourceTree = "<group>"; };
+		0A162ADB2AFD578800DF885A /* CharacterDetailsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CharacterDetailsView.swift; sourceTree = "<group>"; };
+		0A162ADD2AFD595600DF885A /* DetailTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailTableViewCell.swift; sourceTree = "<group>"; };
 		0AFC20072AF946BE00B89451 /* Rick&MortyApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Rick&MortyApp.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		0AFC200A2AF946BE00B89451 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		0AFC200C2AF946BE00B89451 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -47,6 +53,31 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		0A162AD72AFD572300DF885A /* Controller */ = {
+			isa = PBXGroup;
+			children = (
+				0A162AD82AFD574500DF885A /* CharacterDetailsViewController.swift */,
+			);
+			path = Controller;
+			sourceTree = "<group>";
+		};
+		0A162ADA2AFD577000DF885A /* View */ = {
+			isa = PBXGroup;
+			children = (
+				0A162ADB2AFD578800DF885A /* CharacterDetailsView.swift */,
+				0A162ADF2AFD595F00DF885A /* Cell */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		0A162ADF2AFD595F00DF885A /* Cell */ = {
+			isa = PBXGroup;
+			children = (
+				0A162ADD2AFD595600DF885A /* DetailTableViewCell.swift */,
+			);
+			path = Cell;
+			sourceTree = "<group>";
+		};
 		0ACB1D362AFBA9EC00C47BB3 /* Cell */ = {
 			isa = PBXGroup;
 			children = (
@@ -132,6 +163,8 @@
 		0AFC20292AF948CE00B89451 /* CharacterDetails */ = {
 			isa = PBXGroup;
 			children = (
+				0A162ADA2AFD577000DF885A /* View */,
+				0A162AD72AFD572300DF885A /* Controller */,
 			);
 			path = CharacterDetails;
 			sourceTree = "<group>";
@@ -267,10 +300,13 @@
 				0AFC200B2AF946BE00B89451 /* AppDelegate.swift in Sources */,
 				0AFC20352AF948CE00B89451 /* EpisodesViewController.swift in Sources */,
 				0AFC203D2AF96F3100B89451 /* EpisodesCollectionViewCell.swift in Sources */,
+				0A162ADC2AFD578800DF885A /* CharacterDetailsView.swift in Sources */,
 				0AFC20362AF948CE00B89451 /* TabBar.swift in Sources */,
 				0AFC20152AF946BE00B89451 /* Rick_MortyApp.xcdatamodeld in Sources */,
+				0A162ADE2AFD595600DF885A /* DetailTableViewCell.swift in Sources */,
 				0AFC20392AF95CA200B89451 /* EpisodesView.swift in Sources */,
 				0AFC20332AF948CE00B89451 /* LaunchScreenViewController.swift in Sources */,
+				0A162AD92AFD574500DF885A /* CharacterDetailsViewController.swift in Sources */,
 				0AFC20342AF948CE00B89451 /* FavoritesViewController.swift in Sources */,
 				0AFC200D2AF946BE00B89451 /* SceneDelegate.swift in Sources */,
 			);
