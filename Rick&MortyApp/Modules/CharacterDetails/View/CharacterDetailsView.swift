@@ -9,7 +9,17 @@ import UIKit
 
 class CharacterDetailsView: UIView {
     //MARK: - Parameters
-    private let characterImageView = UIImageView(image: UIImage(named: "person"))
+    private let characterImageView = {
+        let view = UIImageView(image: UIImage(named: "person"))
+        view.clipsToBounds = true
+        return view
+    }()
+    private let cameraImageView: UIImageView = {
+        let view = UIImageView(image: UIImage(named: "camera"))
+        let tapGestureRecognizer = UITapGestureRecognizer(target: nil, action: #selector(changePhoto))
+        view.addGestureRecognizer(tapGestureRecognizer)
+        return view
+    }()
     private let nameLabel: UILabel = {
         let label = UILabel()
         label.textColor = .label
@@ -56,8 +66,11 @@ class CharacterDetailsView: UIView {
     private func setViews() {
         backgroundColor = .systemBackground
         addSubview(characterImageView)
+        addSubview(cameraImageView)
         addSubview(nameLabel)
         addSubview(detailsTableView)
+        let tapGestureRecognizer = UITapGestureRecognizer(target: nil, action: #selector(changePhoto))
+        cameraImageView.addGestureRecognizer(tapGestureRecognizer)
     }
     
     func setDelegates(dataSource: UITableViewDataSource, delegate: UITableViewDelegate) {
@@ -69,6 +82,7 @@ class CharacterDetailsView: UIView {
         characterImageView.translatesAutoresizingMaskIntoConstraints = false
         nameLabel.translatesAutoresizingMaskIntoConstraints = false
         detailsTableView.translatesAutoresizingMaskIntoConstraints = false
+        cameraImageView.translatesAutoresizingMaskIntoConstraints = false
         
         NSLayoutConstraint.activate([
             characterImageView.topAnchor.constraint(equalTo: safeAreaLayoutGuide.topAnchor, constant: 64),
@@ -76,6 +90,11 @@ class CharacterDetailsView: UIView {
             characterImageView.centerYAnchor.constraint(equalTo: centerYAnchor),
             characterImageView.widthAnchor.constraint(equalTo: widthAnchor, multiplier: 0.5),
             characterImageView.heightAnchor.constraint(equalTo: widthAnchor, multiplier: 0.5),
+            
+            cameraImageView.leadingAnchor.constraint(equalTo: characterImageView.trailingAnchor, constant: 9),
+            cameraImageView.centerYAnchor.constraint(equalTo: characterImageView.centerYAnchor),
+            cameraImageView.heightAnchor.constraint(equalToConstant: 32),
+            cameraImageView.widthAnchor.constraint(equalToConstant: 32),
             
             nameLabel.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 24),
             nameLabel.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -24),
@@ -87,5 +106,10 @@ class CharacterDetailsView: UIView {
             detailsTableView.bottomAnchor.constraint(equalTo: safeAreaLayoutGuide.bottomAnchor)
             
         ])
+    }
+    
+    //MARK: - Button actions
+    @objc func changePhoto() {
+        print("Change photo")
     }
 }
