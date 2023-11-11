@@ -21,6 +21,7 @@ final class EpisodesView: UIView {
     private lazy var episodesCollectionView: UICollectionView = {
         let view = UICollectionView(frame: .zero, collectionViewLayout: UICollectionViewFlowLayout())
         view.register(EpisodesCollectionViewCell.self, forCellWithReuseIdentifier: EpisodesCollectionViewCell.reuseId)
+        view.showsVerticalScrollIndicator = false
         return view
     }()
     

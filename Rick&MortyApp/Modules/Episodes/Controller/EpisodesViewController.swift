@@ -30,7 +30,6 @@ class EpisodesViewController: UIViewController {
 
 extension EpisodesViewController: UICollectionViewDelegate, UICollectionViewDelegateFlowLayout {
         func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-            navigationController?.hidesBottomBarWhenPushed = true
             navigationController?.pushViewController(CharacterDetailsViewController(), animated: true)
         }
     
