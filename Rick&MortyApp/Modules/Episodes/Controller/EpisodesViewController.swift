@@ -29,9 +29,10 @@ class EpisodesViewController: UIViewController {
 //MARK: - CollectionView setup
 
 extension EpisodesViewController: UICollectionViewDelegate, UICollectionViewDelegateFlowLayout {
-    //    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-    //        <#code#>
-    //    }
+        func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+            navigationController?.hidesBottomBarWhenPushed = true
+            navigationController?.pushViewController(CharacterDetailsViewController(), animated: true)
+        }
     
     //MARK: - FlowLayout
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {

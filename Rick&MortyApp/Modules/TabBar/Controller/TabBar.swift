@@ -30,6 +30,7 @@ class TabBar: UITabBarController {
         favoritesVC.tabBarItem = favoritesItem
         
         
+        
         viewControllers = [episodesVC, favoritesVC]
     }
 }
