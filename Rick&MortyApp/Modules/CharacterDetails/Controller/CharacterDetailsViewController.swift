@@ -29,6 +29,7 @@ final class CharacterDetailsViewController: UIViewController {
 }
 //MARK: - Datasource
 extension CharacterDetailsViewController: UITableViewDataSource {
+    
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         4
     }

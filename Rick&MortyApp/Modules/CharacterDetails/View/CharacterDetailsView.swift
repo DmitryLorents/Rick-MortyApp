@@ -21,7 +21,19 @@ class CharacterDetailsView: UIView {
     private lazy var detailsTableView: UITableView = {
         let view = UITableView()
         view.register(DetailTableViewCell.self, forCellReuseIdentifier: DetailTableViewCell.reuseId)
+        view.estimatedRowHeight = 64
+        view.rowHeight = UITableView.automaticDimension
+        view.tableHeaderView = headerTitle
+        
         return view
+    }()
+    private let headerTitle: UILabel = {
+        let label = UILabel(frame: CGRect(x: 0, y: 24, width: 0, height: 24+16))
+        label.text = "Informations"
+        label.textAlignment = .left
+        label.font = UIFont.systemFont(ofSize: 20)
+        label.textColor = .secondaryLabel
+        return label
     }()
     
     //MARK: - Init
