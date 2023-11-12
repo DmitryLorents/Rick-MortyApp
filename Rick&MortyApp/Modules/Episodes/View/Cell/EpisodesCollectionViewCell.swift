@@ -16,7 +16,7 @@ class EpisodesCollectionViewCell: UICollectionViewCell {
     private lazy var vStack: UIStackView = {
         let view = UIStackView()
         view.axis = .vertical
-        view.distribution = .fill//.fillProportionally
+        view.distribution = .fill
         view.alignment = .fill
         return view
     }()
@@ -61,7 +61,7 @@ class EpisodesCollectionViewCell: UICollectionViewCell {
         label.font = UIFont.systemFont(ofSize: 16)
         return label
     }()
-    private let heartImageView = UIImageView(image: UIImage(named: "heartBold"))
+    private lazy var heartImageView = UIImageView(image: UIImage(named: "heartBold"))
     
     //MARK: - Init
     override init(frame: CGRect) {
@@ -126,4 +126,9 @@ class EpisodesCollectionViewCell: UICollectionViewCell {
             
         ])
     }
+    
+    func setHeartAction(tapGestureRecognizer: UITapGestureRecognizer) {
+        heartImageView.addGestureRecognizer(tapGestureRecognizer)
+    }
+    
 }

@@ -23,7 +23,10 @@ class EpisodesViewController: UIViewController {
     private func setViews() {
         view = mainView
         mainView.setDelegates(dataSource: self, delegate: self)
-        
+    }
+    
+    @objc func heartButtonPressed() {
+        print("Heart pressed")
     }
 }
 //MARK: - CollectionView setup
@@ -50,6 +53,8 @@ extension EpisodesViewController: UICollectionViewDataSource {
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: EpisodesCollectionViewCell.reuseId, for: indexPath) as? EpisodesCollectionViewCell else { return .init() }
+        let tapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(heartButtonPressed))
+        cell.setHeartAction(tapGestureRecognizer: tapGestureRecognizer)
         return cell
     }
     
