@@ -8,7 +8,7 @@
 import Foundation
 
 // MARK: - RickAndMorty
-struct RickAndMorty: Codable {
+struct Episodes: Codable {
 //    let info: Info
     let results: [Results]
 }
