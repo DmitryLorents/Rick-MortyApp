@@ -5,7 +5,7 @@
 //  Created by Dmitry on 12.11.2023.
 //
 
-import Foundation
+import UIKit
 
 enum ParsingErrors: Error {
     case decodingProblem
@@ -13,68 +13,69 @@ enum ParsingErrors: Error {
 }
 
 final class  NetworkManager {
+    //MARK: - Singletone
+    static let shared = NetworkManager()
+    private init() {}
+    
+    //MARK: - Parameters
     var urlString: String!
     let decoder = JSONDecoder()
 
-    
-    func getCountriesInfo(CCA2: String?, completion: @escaping (Result<RickAndMorty, Error>) -> () ) {
-        //set urlString depending on CCA2
-        switch CCA2 {
-        case.none:
-            urlString =  "https://restcountries.com/v3.1/all"
-            
-        case.some(let CCA2Text):
-            urlString = "https://restcountries.com/v3.1/alpha/" + CCA2Text
-        }
-        guard let url = URL(string: urlString) else {
-            print("Incorrect URL")
-            return}
+    //MARK: - Methods
+   private func getData <T: Codable> (urlString: String, parseProtocol: T.Type, completion: @escaping (Result<T, Error>) -> () ) {
+        guard let url = URL(string: urlString) else {return}
         
         URLSession.shared.dataTask(with: url) { [weak self] (data, _, error) in
             
-            guard let self else {
-                print("No self")
-                return }
+            guard let self = self else { return }
             guard let downloadedData = data, error == nil else {
                 completion(.failure(error!))
                 return}
             
             
-            guard let parsedData = try? self.decoder.decode(Countries.self, from: downloadedData) else {
-                completion(.failure(error ?? ParsingErrors.decodingProblem))
+            guard let parsedData = try? self.decoder.decode(parseProtocol, from: downloadedData) else {
+                completion(.failure(error!))
                 return}
             completion(.success(parsedData))
-        }.resume()
+            }.resume()
+        }
+    
+    func getEpisodes(completion: @escaping (Result<Episodes, Error>) -> () ) {
+        let urlString = "https://rickandmortyapi.com/api/episode"
+        getData(urlString: urlString, parseProtocol: Episodes.self, completion: completion)
     }
     
-    func sorting(_ countries: Countries) -> [String: Countries] {
+    func getCharacter(with urlString: String, completion: @escaping (Result<CharacterData, Error>) -> () ) {
+        getData(urlString: urlString, parseProtocol: CharacterData.self, completion: completion)
+    }
+    
+    func getImage(by uRLString: String) -> UIImage {
+        var outputImage = UIImage()
         
-        //creeate an array of all possible regions
-        var regions = [String]()
-        Region.allCases.forEach { region in
-            regions.append(region.rawValue)
-        }
-        //iterate each country in incoming "countries" and add each of them  into corresponding array in output dictionary
-        var outputDictionary = [String: Countries]()
-        countries.forEach { country in
-            let  key = country.region.rawValue
-            if var existingArray = outputDictionary[key] {
-                existingArray.append(country)
-                outputDictionary.updateValue(existingArray, forKey: key)
-            } else {
-                let newArray = [country]
-                outputDictionary.updateValue(newArray, forKey: key)
-            }
-        }
-        //sort each country array by alphabet
-        for (key, value) in outputDictionary {
-            let newValue = value.sorted(by: {country1, country2 in
-                country1.name.common < country2.name.common
-            })
-            outputDictionary.updateValue(newValue, forKey: key)
-        }
+        //If imageurl's imagename has space then this line going to work for this
+        let imageServerUrl = uRLString.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed) ?? ""
         
-        return outputDictionary
+        if let url = URL(string: imageServerUrl) {
+            URLSession.shared.dataTask(with: url, completionHandler: { (data, _, error) in
+                
+                if error != nil {
+                    DispatchQueue.main.async {
+                        guard let image = UIImage(systemName: "photo") else {return}
+                                outputImage = image
+                    }
+                    return
+                }
+                DispatchQueue.main.async {
+                    if let data = data {
+                        if let downloadedImage = UIImage(data: data) {
+                            outputImage = downloadedImage
+                        }
+                    }
+                }
+            }).resume()
         }
+        return outputImage
+    }
+    
     
 }
