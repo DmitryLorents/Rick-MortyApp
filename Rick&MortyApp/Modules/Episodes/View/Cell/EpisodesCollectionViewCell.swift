@@ -21,7 +21,7 @@ class EpisodesCollectionViewCell: UICollectionViewCell {
                 print("Invalid character image url")
                 return
             }
-            mainImageView.image = networkManager.getImage(by: characterImageURL)
+            mainImageView.imageFromURL(characterImageURL)
         }
     }
     
