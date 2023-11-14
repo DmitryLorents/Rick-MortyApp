@@ -11,18 +11,36 @@ class EpisodesViewController: UIViewController {
     
     //MARK: - Propperties
     let mainView = EpisodesView()
+    let networkManager = NetworkManager.shared
+    private var episodes: [Results]? {
+        didSet {
+            mainView.reloadCollection()
+        }
+    }
 
     override func viewDidLoad() {
         super.viewDidLoad()
         setViews()
-
-        
+        getEpisodes()
     }
     
     //MARK: - Methods
     private func setViews() {
         view = mainView
         mainView.setDelegates(dataSource: self, delegate: self)
+    }
+    
+    private func getEpisodes() {
+        networkManager.getEpisodes { result in
+            switch result {
+            case .success(let success):
+                DispatchQueue.main.async {
+                    self.episodes = success.results
+                }
+            case .failure(let failure):
+                print(failure.localizedDescription)
+            }
+        }
     }
     
     @objc func heartButtonPressed() {
@@ -48,13 +66,16 @@ extension EpisodesViewController: UICollectionViewDelegate, UICollectionViewDele
 
 extension EpisodesViewController: UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        2
+        episodes?.count ?? 0
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: EpisodesCollectionViewCell.reuseId, for: indexPath) as? EpisodesCollectionViewCell else { return .init() }
         let tapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(heartButtonPressed))
         cell.setHeartAction(tapGestureRecognizer: tapGestureRecognizer)
+        if let episode = episodes?[indexPath.item] {
+            cell.setupCell(with: episode)
+        }
         return cell
     }
     
