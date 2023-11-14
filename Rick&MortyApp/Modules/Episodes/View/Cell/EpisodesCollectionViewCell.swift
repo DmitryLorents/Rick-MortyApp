@@ -13,6 +13,22 @@ class EpisodesCollectionViewCell: UICollectionViewCell {
     
     //MARK: - Parameters
     
+    private lazy var networkManager = NetworkManager.shared
+    var randomCharacter: CharacterData? {
+        didSet {
+            characterNameLabel.text = randomCharacter?.name
+            guard let characterImageURL = randomCharacter?.image else {
+                print("Invalid character image url")
+                return
+            }
+            let charakterPhoto = networkManager.getImage(by: characterImageURL)
+            DispatchQueue.main.async {
+                self.mainImageView.image = charakterPhoto
+            }
+           
+        }
+    }
+    
     private lazy var vStack: UIStackView = {
         let view = UIStackView()
         view.axis = .vertical
@@ -28,7 +44,7 @@ class EpisodesCollectionViewCell: UICollectionViewCell {
         return view
     }()
     
-    private let cellTitle: UILabel = {
+    private let characterNameLabel: UILabel = {
         let label = UILabel()
         label.backgroundColor = .white
         label.font = UIFont.boldSystemFont(ofSize: 20)
@@ -54,14 +70,20 @@ class EpisodesCollectionViewCell: UICollectionViewCell {
     }()
     
     private let monitorImageView = UIImageView(image: UIImage(named: "monitorPlay"))
+    
     private let episodNameLabel: UILabel = {
        let label = UILabel()
         label.text = "Pilot | S01E01"
         label.textAlignment = .left
+        label.numberOfLines = 0
         label.font = UIFont.systemFont(ofSize: 16)
         return label
     }()
-    private lazy var heartImageView = UIImageView(image: UIImage(named: "heartBold"))
+    private lazy var heartImageView: UIImageView = {
+        let view = UIImageView(image: UIImage(named: "heartBold"))
+        view.isUserInteractionEnabled = true
+        return view
+    }()
     
     //MARK: - Init
     override init(frame: CGRect) {
@@ -78,7 +100,7 @@ class EpisodesCollectionViewCell: UICollectionViewCell {
         contentView.addSubview(cellBackgroundView)
         cellBackgroundView.addSubview(vStack)
         vStack.addArrangedSubview(mainImageView)
-        vStack.addArrangedSubview(cellTitle)
+        vStack.addArrangedSubview(characterNameLabel)
         vStack.addArrangedSubview(bottomGrayView)
         mainImageView.backgroundColor = .systemGray3
         bottomGrayView.addSubview(hStack)
@@ -92,7 +114,7 @@ class EpisodesCollectionViewCell: UICollectionViewCell {
         cellBackgroundView.translatesAutoresizingMaskIntoConstraints = false
         vStack.translatesAutoresizingMaskIntoConstraints = false
         mainImageView.translatesAutoresizingMaskIntoConstraints = false
-        cellTitle.translatesAutoresizingMaskIntoConstraints = false
+        characterNameLabel.translatesAutoresizingMaskIntoConstraints = false
         bottomGrayView.translatesAutoresizingMaskIntoConstraints = false
         hStack.translatesAutoresizingMaskIntoConstraints = false
         monitorImageView.translatesAutoresizingMaskIntoConstraints = false
@@ -129,6 +151,35 @@ class EpisodesCollectionViewCell: UICollectionViewCell {
     
     func setHeartAction(tapGestureRecognizer: UITapGestureRecognizer) {
         heartImageView.addGestureRecognizer(tapGestureRecognizer)
+    }
+    
+    func setupCell(with model: Results ) {
+        
+        //set episode name
+        episodNameLabel.text = "\(model.name) | \(model.episode)"
+        
+        //get random character
+        guard let randomCharacterURL = model.characters.randomElement() else {
+            print("Invalid character url")
+            return
+        }
+        networkManager.getCharacter(with: randomCharacterURL) { [weak self] result in
+            guard let self else {
+                print("No self")
+                return
+            }
+            
+            switch result {
+            case.failure(let error) :
+                print(error.localizedDescription)
+                return
+            case.success(let character) :
+                DispatchQueue.main.async {
+                    self.randomCharacter = character
+                }
+                
+            }
+        }
     }
     
 }
