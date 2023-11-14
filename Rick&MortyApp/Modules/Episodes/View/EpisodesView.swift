@@ -36,6 +36,10 @@ final class EpisodesView: UIView {
         fatalError("init(coder:) has not been implemented")
     }
     //MARK: - Methods
+    
+    func reloadCollection() {
+        episodesCollectionView.reloadData()
+    }
     private func setViews() {
         addSubview(logoImageView)
         addSubview(episodesSearchBar)
