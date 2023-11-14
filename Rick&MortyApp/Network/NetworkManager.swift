@@ -49,11 +49,11 @@ final class  NetworkManager {
         getData(urlString: urlString, parseProtocol: CharacterData.self, completion: completion)
     }
     
-    func getImage(by uRLString: String) -> UIImage {
+    func getImage(by URLString: String) -> UIImage {
         var outputImage = UIImage()
         
         //If imageurl's imagename has space then this line going to work for this
-        let imageServerUrl = uRLString.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed) ?? ""
+        let imageServerUrl = URLString.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed) ?? ""
         
         if let url = URL(string: imageServerUrl) {
             URLSession.shared.dataTask(with: url, completionHandler: { (data, _, error) in
@@ -76,6 +76,5 @@ final class  NetworkManager {
         }
         return outputImage
     }
-    
     
 }

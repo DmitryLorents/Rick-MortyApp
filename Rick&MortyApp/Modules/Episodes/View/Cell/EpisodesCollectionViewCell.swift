@@ -21,11 +21,7 @@ class EpisodesCollectionViewCell: UICollectionViewCell {
                 print("Invalid character image url")
                 return
             }
-            let charakterPhoto = networkManager.getImage(by: characterImageURL)
-            DispatchQueue.main.async {
-                self.mainImageView.image = charakterPhoto
-            }
-           
+            mainImageView.image = networkManager.getImage(by: characterImageURL)
         }
     }
     
