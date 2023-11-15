@@ -10,6 +10,9 @@ import UIKit
 class LaunchView: UIView {
     
     //MARK: - Parameters
+    
+    var degree = CGFloat(Double.pi / 180)
+    var timer: Timer!
     private let logoImageView = UIImageView(image: UIImage(named: "logo"))
     private let greenCircleImageView = UIImageView(image: UIImage(named: "greenCircle"))
     
@@ -18,6 +21,8 @@ class LaunchView: UIView {
         super.init(frame: frame)
         setViews()
         setConstraints()
+        rotateView()
+        
     }
     
     required init?(coder: NSCoder) {
@@ -29,6 +34,21 @@ class LaunchView: UIView {
         backgroundColor = .systemBackground
         addSubview(logoImageView)
         addSubview(greenCircleImageView)
+    }
+    
+    private func rotateView() {
+        timer = Timer.scheduledTimer(withTimeInterval: 0.02, repeats: true, block: { timer in
+            UIView.animate(withDuration: 0.02) { [self] in
+                greenCircleImageView.transform = CGAffineTransform(rotationAngle: self.degree)
+            }
+            self.degree += CGFloat(Double.pi / 180)
+            print(self.degree)
+        })
+        
+    }
+    
+    func stopAnimation() {
+        timer.invalidate()
     }
     
     private func setConstraints() {
