@@ -15,28 +15,18 @@ class EpisodesViewController: UIViewController {
     
     private var episodes: [Results]? {
         didSet {
-            guard let episodes else {return}
-            let group = DispatchGroup()
-            let workItem = DispatchWorkItem(block: {
-                for index in 0..<(self.episodes?.count ?? 0) {
-                    let episode = episodes[index]
-                    self.getCharacter(episode: episode, index: index)
-                }
-            })
-            DispatchQueue.global().sync(execute: workItem )
-            group.notify(queue: DispatchQueue.main) {
-                self.mainView.reloadCollection()
-            }
-            
+            getAllCharacters()
         }
     }
     
     private var characters = [CharacterData]() {
         didSet {
-            mainView.reloadCollection()
+            if characters.count == episodes?.count {
+                mainView.reloadCollection()
+            }
         }
     }
-
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         setViews()
@@ -59,6 +49,14 @@ class EpisodesViewController: UIViewController {
             case .failure(let failure):
                 print(failure.localizedDescription)
             }
+        }
+    }
+    
+    private func getAllCharacters() {
+        guard let episodes else {return}
+        for index in 0..<(self.episodes?.count ?? 0) {
+            let episode = episodes[index]
+            self.getCharacter(episode: episode, index: index)
         }
     }
     
@@ -93,10 +91,10 @@ class EpisodesViewController: UIViewController {
 //MARK: - CollectionView setup
 
 extension EpisodesViewController: UICollectionViewDelegate, UICollectionViewDelegateFlowLayout {
-        func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-            let character = characters[indexPath.row]
-            navigationController?.pushViewController(CharacterDetailsViewController(character: character), animated: true)
-        }
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        let character = characters[indexPath.row]
+        navigationController?.pushViewController(CharacterDetailsViewController(character: character), animated: true)
+    }
     
     //MARK: - FlowLayout
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
@@ -119,7 +117,7 @@ extension EpisodesViewController: UICollectionViewDataSource {
         cell.setHeartAction(tapGestureRecognizer: tapGestureRecognizer)
         if let episode = episodes?[indexPath.item] {
             let character = characters[indexPath.row]
-                cell.setupCell(episode: episode, character: character)
+            cell.setupCell(episode: episode, character: character)
             
         }
         return cell
