@@ -63,6 +63,13 @@ class CharacterDetailsView: UIView {
         characterImageView.layer.cornerRadius = characterImageView.bounds.height / 2
     }
     //MARK: - Methods
+    
+    func setupView(with character: CharacterData?) {
+        guard let character else {return}
+        characterImageView.imageFromURL(character.image)
+        nameLabel.text = character.name
+    }
+    
     private func setViews() {
         backgroundColor = .systemBackground
         addSubview(characterImageView)
