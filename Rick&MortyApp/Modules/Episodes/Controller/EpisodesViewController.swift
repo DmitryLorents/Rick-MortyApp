@@ -12,7 +12,26 @@ class EpisodesViewController: UIViewController {
     //MARK: - Propperties
     let mainView = EpisodesView()
     let networkManager = NetworkManager.shared
+    
     private var episodes: [Results]? {
+        didSet {
+            guard let episodes else {return}
+            let group = DispatchGroup()
+            let workItem = DispatchWorkItem(block: {
+                for index in 0..<(self.episodes?.count ?? 0) {
+                    let episode = episodes[index]
+                    self.getCharacter(episode: episode, index: index)
+                }
+            })
+            DispatchQueue.global().sync(execute: workItem )
+            group.notify(queue: DispatchQueue.main) {
+                self.mainView.reloadCollection()
+            }
+            
+        }
+    }
+    
+    private var characters = [CharacterData]() {
         didSet {
             mainView.reloadCollection()
         }
@@ -43,6 +62,30 @@ class EpisodesViewController: UIViewController {
         }
     }
     
+    private func getCharacter(episode: Results, index: Int) {
+        guard let randomCharacterURL = episode.characters.randomElement() else {
+            print("Invalid character url")
+            return
+        }
+        networkManager.getCharacter(with: randomCharacterURL) { [weak self] result in
+            guard let self else {
+                print("No self")
+                return
+            }
+            
+            switch result {
+            case.failure(let error) :
+                print(error.localizedDescription)
+                return
+            case.success(let character) :
+                DispatchQueue.main.async {
+                    self.characters.append(character)
+                }
+                
+            }
+        }
+    }
+    
     @objc func heartButtonPressed() {
         print("Heart pressed")
     }
@@ -51,7 +94,8 @@ class EpisodesViewController: UIViewController {
 
 extension EpisodesViewController: UICollectionViewDelegate, UICollectionViewDelegateFlowLayout {
         func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-            navigationController?.pushViewController(CharacterDetailsViewController(), animated: true)
+            let character = characters[indexPath.row]
+            navigationController?.pushViewController(CharacterDetailsViewController(character: character), animated: true)
         }
     
     //MARK: - FlowLayout
@@ -74,7 +118,9 @@ extension EpisodesViewController: UICollectionViewDataSource {
         let tapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(heartButtonPressed))
         cell.setHeartAction(tapGestureRecognizer: tapGestureRecognizer)
         if let episode = episodes?[indexPath.item] {
-            cell.setupCell(with: episode)
+            let character = characters[indexPath.row]
+                cell.setupCell(episode: episode, character: character)
+            
         }
         return cell
     }
