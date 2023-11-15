@@ -30,7 +30,7 @@ final class FavoritesViewController: UIViewController {
 
 extension FavoritesViewController: UICollectionViewDelegate, UICollectionViewDelegateFlowLayout {
         func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-            navigationController?.pushViewController(CharacterDetailsViewController(), animated: true)
+            navigationController?.pushViewController(CharacterDetailsViewController(character: nil), animated: true)
         }
     
     //MARK: - FlowLayout

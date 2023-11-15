@@ -14,6 +14,7 @@ class EpisodesCollectionViewCell: UICollectionViewCell {
     //MARK: - Parameters
     
     private lazy var networkManager = NetworkManager.shared
+    
     var randomCharacter: CharacterData? {
         didSet {
             characterNameLabel.text = randomCharacter?.name
@@ -149,33 +150,33 @@ class EpisodesCollectionViewCell: UICollectionViewCell {
         heartImageView.addGestureRecognizer(tapGestureRecognizer)
     }
     
-    func setupCell(with model: Results ) {
+    func setupCell(episode: Results, character: CharacterData) {
         
         //set episode name
-        episodNameLabel.text = "\(model.name) | \(model.episode)"
-        
+        episodNameLabel.text = "\(episode.name) | \(episode.episode)"
+        randomCharacter = character
         //get random character
-        guard let randomCharacterURL = model.characters.randomElement() else {
-            print("Invalid character url")
-            return
-        }
-        networkManager.getCharacter(with: randomCharacterURL) { [weak self] result in
-            guard let self else {
-                print("No self")
-                return
-            }
-            
-            switch result {
-            case.failure(let error) :
-                print(error.localizedDescription)
-                return
-            case.success(let character) :
-                DispatchQueue.main.async {
-                    self.randomCharacter = character
-                }
-                
-            }
-        }
+//        guard let randomCharacterURL = episode.characters.randomElement() else {
+//            print("Invalid character url")
+//            return
+//        }
+//        networkManager.getCharacter(with: randomCharacterURL) { [weak self] result in
+//            guard let self else {
+//                print("No self")
+//                return
+//            }
+//            
+//            switch result {
+//            case.failure(let error) :
+//                print(error.localizedDescription)
+//                return
+//            case.success(let character) :
+//                DispatchQueue.main.async {
+//                    self.randomCharacter = character
+//                }
+//                
+//            }
+//        }
     }
     
 }
