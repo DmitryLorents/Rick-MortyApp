@@ -42,7 +42,6 @@ class LaunchView: UIView {
                 greenCircleImageView.transform = CGAffineTransform(rotationAngle: self.degree)
             }
             self.degree += CGFloat(Double.pi / 180)
-            print(self.degree)
         })
         
     }

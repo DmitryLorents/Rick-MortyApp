@@ -17,6 +17,7 @@ final class CharacterDetailsViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         setViews()
+        setNavigationAppearance()
     }
     
     //MARK: - Init
@@ -31,6 +32,28 @@ final class CharacterDetailsViewController: UIViewController {
     
 
     //MARK: - Methods
+    
+    private func setNavigationAppearance() {
+        let buttonRight: UIButton = {
+            let button = UIButton()
+            button.setImage(UIImage(named: "logoBlack"), for: .normal)
+            return button
+        }()
+
+        let buttonLeft: UILabel = {
+            let button = UILabel()
+            button.isUserInteractionEnabled = true
+            button.text = "\u{2190} GO BACK"
+            button.font = UIFont.boldSystemFont(ofSize: 18)
+            let tapGesture = UITapGestureRecognizer(target: self, action: #selector(backAction))
+            button.addGestureRecognizer(tapGesture)
+            return button
+        }()
+        
+        navigationItem.leftBarButtonItem = UIBarButtonItem(customView: buttonLeft)
+        navigationItem.rightBarButtonItem = UIBarButtonItem(customView: buttonRight)
+    }
+    
     private func setViews() {
         view = mainView
         mainView.setDelegates(dataSource: self, delegate: self)
@@ -48,6 +71,11 @@ final class CharacterDetailsViewController: UIViewController {
         default: return ""
         }
     }
+    
+    //MARK: - Button actions
+    @objc func backAction() {
+        navigationController?.popViewController(animated: true)
+    }
 
 }
 //MARK: - Datasource
@@ -64,10 +92,4 @@ extension CharacterDetailsViewController: UITableViewDataSource {
         cell.setupCell(with: mainTitle, detailTitle)
         return cell
     }
-    
-    
-}
-//MARK: - Delegate
-extension CharacterDetailsViewController: UITableViewDelegate {
-    
 }
