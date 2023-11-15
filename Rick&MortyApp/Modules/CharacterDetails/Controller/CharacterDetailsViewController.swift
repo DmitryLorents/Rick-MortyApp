@@ -79,7 +79,7 @@ final class CharacterDetailsViewController: UIViewController {
 
 }
 //MARK: - Datasource
-extension CharacterDetailsViewController: UITableViewDataSource {
+extension CharacterDetailsViewController: UITableViewDataSource, UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         cellTitles.count
