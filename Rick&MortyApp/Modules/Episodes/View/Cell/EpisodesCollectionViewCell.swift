@@ -14,6 +14,15 @@ class EpisodesCollectionViewCell: UICollectionViewCell {
     //MARK: - Parameters
     
     private lazy var networkManager = NetworkManager.shared
+    var isFavorite = false {
+        didSet {
+            UIView.animate(withDuration: 0.7) { [self] in
+                heartImageView.alpha = 0.05
+                heartImageView.image = self.isFavorite ? UIImage(named: "heartBoldFill") : UIImage(named: "heartBold")
+                heartImageView.alpha = 1
+            }
+        }
+    }
     
     var randomCharacter: CharacterData? {
         didSet {
@@ -61,7 +70,6 @@ class EpisodesCollectionViewCell: UICollectionViewCell {
        let stack = UIStackView()
         stack.axis = .horizontal
         stack.alignment = .center
-//        stack.distribution = .equalSpacing
         stack.spacing = 11
         return stack
     }()
@@ -77,7 +85,7 @@ class EpisodesCollectionViewCell: UICollectionViewCell {
         return label
     }()
     private lazy var heartImageView: UIImageView = {
-        let view = UIImageView(image: UIImage(named: "heartBold"))
+        let view = UIImageView(image: isFavorite ? UIImage(named: "heartBoldFill") : UIImage(named: "heartBold"))
         view.isUserInteractionEnabled = true
         return view
     }()
@@ -148,35 +156,17 @@ class EpisodesCollectionViewCell: UICollectionViewCell {
     
     func setHeartAction(tapGestureRecognizer: UITapGestureRecognizer) {
         heartImageView.addGestureRecognizer(tapGestureRecognizer)
+        let toogleTapGesture = UITapGestureRecognizer(target: self, action: #selector(toggleIsFavorite))
+        heartImageView.addGestureRecognizer(toogleTapGesture)
     }
     
     func setupCell(episode: Results, character: CharacterData) {
-        
-        //set episode name
         episodNameLabel.text = "\(episode.name) | \(episode.episode)"
         randomCharacter = character
-        //get random character
-//        guard let randomCharacterURL = episode.characters.randomElement() else {
-//            print("Invalid character url")
-//            return
-//        }
-//        networkManager.getCharacter(with: randomCharacterURL) { [weak self] result in
-//            guard let self else {
-//                print("No self")
-//                return
-//            }
-//            
-//            switch result {
-//            case.failure(let error) :
-//                print(error.localizedDescription)
-//                return
-//            case.success(let character) :
-//                DispatchQueue.main.async {
-//                    self.randomCharacter = character
-//                }
-//                
-//            }
-//        }
+    }
+    
+    @objc func toggleIsFavorite() {
+        isFavorite.toggle()
     }
     
 }
